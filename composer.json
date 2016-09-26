@@ -1,0 +1,11 @@
+{
+    "require": {
+        "league/flysystem": "^1.0",
+        "league/flysystem-sftp": "^1.0",
+        "atoum/atoum": "^2.8",
+        "atoum/stubs": "^2.5"
+    },
+  "autoload" : {
+    "psr-4": { "Pmp\\Deploy\\" : "src/" }
+  }
+}
