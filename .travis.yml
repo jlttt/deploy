@@ -1,0 +1,15 @@
+#addons:
+#  code_climate:
+#      repo_token: f88da1e629f7bd9569bb2b2f5cf43d92ed18e66b21653c9e5b4faf0a5571a0a6
+language: php
+php:
+  - '7.0'
+before_script:
+  - mkdir -p build/logs/
+script: 
+  - composer install --no-interaction --dev
+  - ./vendor/bin/atoum -d src/tests/units -c .atoum.php
+#  - CODECLIMATE_REPO_TOKEN=f88da1e629f7bd9569bb2b2f5cf43d92ed18e66b21653c9e5b4faf0a5571a0a6 ./vendor/bin/test-reporter
+notifications:
+  on_success: change
+  on_failure: change
