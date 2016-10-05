@@ -1,3 +1,3 @@
-# travis-broken-example
+# pmp-deploy
 
-An example that will cause a build failure
+Something like sync local or remote directories...
