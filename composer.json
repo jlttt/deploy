@@ -1,11 +1,16 @@
 {
-    "require": {
-        "league/flysystem": "^1.0",
-        "league/flysystem-sftp": "^1.0",
-        "atoum/atoum": "^2.8",
-        "atoum/stubs": "^2.5"
-    },
-  "autoload" : {
-    "psr-4": { "Pmp\\Deploy\\" : "src/" }
+  "require": {
+    "league/flysystem": "^1.0",
+    "league/flysystem-sftp": "^1.0",
+    "atoum/atoum": "^2.8",
+    "atoum/stubs": "^2.5"
+  },
+  "require-dev": {
+    "codeclimate/php-test-reporter": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pmp\\Deploy\\": "src/"
+    }
   }
 }

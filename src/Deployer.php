@@ -16,17 +16,17 @@ class Deployer
         $this->setDestinationFileSystem($destination);
     }
 
-    public function setSourceFileSystem(FileSystemInterface $fileSystem)
+    private function setSourceFileSystem(FileSystemInterface $fileSystem)
     {
         $this->sourceFileSystem = $fileSystem;
     }
 
-    public function setDestinationFileSystem(FileSystemInterface $fileSystem)
+    private function setDestinationFileSystem(FileSystemInterface $fileSystem)
     {
         $this->destinationFileSystem = $fileSystem;
     }
 
-    public function getSourceFiles()
+    private function getSourceFiles()
     {
         if (is_null($this->sourceFiles)) {
             $this->sourceFiles = $this->sourceFileSystem->getFiles();
@@ -34,7 +34,7 @@ class Deployer
         return $this->sourceFiles;
     }
 
-    public function getDestinationFiles()
+    private function getDestinationFiles()
     {
         if (is_null($this->destinationFiles)) {
             $this->destinationFiles = $this->destinationFileSystem->getFiles();
