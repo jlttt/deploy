@@ -3,8 +3,9 @@ require_once(__DIR__ . '/vendor/autoload.php');
 use Pmp\Deploy\FileSystem\LocalFlySystemAdapter;
 use Pmp\Deploy\Deployer;
 
-$sourcePath = __DIR__ . '/source';
+/*$sourcePath = __DIR__ . '/source';
 $destinationPath = __DIR__ . '/destination';
+
 
 $deployer = new Deployer(new LocalFlySystemAdapter($sourcePath), new LocalFlySystemAdapter($destinationPath));
 var_dump(count($deployer->getCreatedFiles()));
