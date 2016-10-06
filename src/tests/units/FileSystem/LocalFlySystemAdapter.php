@@ -18,6 +18,7 @@ class LocalFlySystemAdapter extends atoum
                     }
                 )
             ->assert('The argument is not a valid path')
+                ->if($this->function->is_string = true)
                 ->if($this->function->file_exists = false)
                 ->exception(
                     function () {
