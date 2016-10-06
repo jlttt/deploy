@@ -3,6 +3,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 use Pmp\Deploy\FileSystem\LocalFlySystemAdapter;
 use Pmp\Deploy\Deployer;
 
+$test = new LocalFlySystemAdapter();
 /*$sourcePath = __DIR__ . '/source';
 $destinationPath = __DIR__ . '/destination';
 

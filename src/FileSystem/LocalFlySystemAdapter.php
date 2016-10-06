@@ -11,12 +11,12 @@ class LocalFlySystemAdapter implements FileSystemInterface
 //
     public function __construct($path)
     {
-//        if (is_null($path)) {
-//            throw new \Exception("The constructor of " . get_class() . " expects a string argument.");
-//        }
-//        if (!file_exists($path)) {
-//            throw new Exception("The path given to the constructor of " . get_class() . " is not valid.");
-//        }
+        if (!is_string($path)) {
+            throw new \Exception("The constructor of " . get_class() . " expects a string argument.");
+        }
+        if (!file_exists($path)) {
+            throw new \Exception("The path given to the constructor of " . get_class() . " is not valid.");
+        }
 //        $this->setPath($path);
     }
 
