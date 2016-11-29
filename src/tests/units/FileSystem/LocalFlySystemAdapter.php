@@ -27,13 +27,5 @@ class LocalFlySystemAdapter extends atoum
                 );
     }
 
-//    public function testConstructorFailsWithNotString()
-//    {
-//        $this
-//            ->exception(
-//                function () {
-//                    $this->newTestedInstance(2);
-//                }
-//            );
-//    }
+
 }

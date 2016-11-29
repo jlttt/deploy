@@ -5,9 +5,9 @@ use Pmp\Deploy\Deployer;
 
 $test = new LocalFlySystemAdapter();
 /*$sourcePath = __DIR__ . '/source';
-$destinationPath = __DIR__ . '/destination';
+$destinationPath = __DIR__ . '/destination';*/
 
-
+/*new LocalFlySystemAdapter();/*
 $deployer = new Deployer(new LocalFlySystemAdapter($sourcePath), new LocalFlySystemAdapter($destinationPath));
 var_dump(count($deployer->getCreatedFiles()));
 var_dump(count($deployer->getDeletedFiles()));
