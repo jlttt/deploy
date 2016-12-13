@@ -9,14 +9,37 @@ class LocalFlySystemAdapter implements FileSystemInterface
 {
     protected $fileSystem = null;
 
-    public function __construct($path)
+    public function __construct(Filesystem $fileSystem)
     {
-        $this->fileSystem = new Filesystem(new Local($path));
+        $this->fileSystem = $fileSystem;
         $this->fileSystem->addPlugin(new ListFiles());
+    }
+
+    private function getFile($data)
+    {
+        $path =  $data['path'];
+        $data['modified'] = $data['timestamp'];
+        unset($data['path']);
+        return new File($this, $path, $data);
     }
 
     public function getFiles()
     {
-        return $this->fileSystem->listFiles('', true);
+        return array_map([$this, 'getFile'], $this->fileSystem->listFiles('', true));
+    }
+
+    public function read($path)
+    {
+        return $this->fileSystem->readStream($path);
+    }
+
+    public function write($path, $stream)
+    {
+        return $this->fileSystem->writeStream($path, $stream);
+    }
+
+    public function delete($path)
+    {
+        return $this->fileSystem->delete($path);
     }
 }
