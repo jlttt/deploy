@@ -11,7 +11,6 @@ namespace Pmp\Deploy\tests\units\FileSystem;
 require_once(__DIR__ . '/../../../../vendor/autoload.php');
 
 use atoum;
-use Pmp\Deploy\FileSystem\File;
 
 class FileSystemComparator extends atoum
 {
@@ -29,7 +28,7 @@ class FileSystemComparator extends atoum
     private function file($fileSystem, $item) {
         $path = $item['path'];
         unset($item['path']);
-        return new File($fileSystem, $path, $item);
+        return new \Pmp\Deploy\FileSystem\File($fileSystem, $path, $item);
     }
 
     public function beforeTestMethod($method) {

@@ -3,27 +3,38 @@ namespace Pmp\Deploy\FileSystem;
 
 class FileSystemSynchronizer implements FileSystemSynchronizerInterface
 {
-    protected $source;
-    protected $destination;
+    protected $comparator;
 
-    public function __construct(FileSystemInterface $source, FileSystemInterface $destination)
+    public function __construct(FileSystemComparator $comparator)
     {
-        $this->setSource($source);
-        $this->setDestination($destination);
-    }
-    public function setSource(FileSystemInterface $source)
-    {
-        $this->source = $source;
-    }
-
-    public function setDestination(FileSystemInterface $destination)
-    {
-        $this->destination = $destination;
+        $this->comparator = $comparator;
     }
 
     public function synchronize()
     {
-
+        $this->createFiles();
+        $this->updateFiles();
+        $this->deleteFiles();
     }
 
+    private function createFiles()
+    {
+        foreach ($this->comparator->getCreatedFiles() as $file) {
+            $file->copyTo($this->comparator->getDestination());
+        }
+    }
+
+    private function updateFiles()
+    {
+        foreach($this->comparator->getUpdatedFiles() as $file) {
+            $file->copyTo($this->comparator->getDestination());
+        }
+    }
+
+    private function deleteFiles()
+    {
+        foreach($this->comparator->getDeletedFiles() as $file) {
+            $file->delete();
+        }
+    }
 }

@@ -21,6 +21,16 @@ class FileSystemComparator implements FileSystemComparatorInterface
         $this->destination = $destination;
     }
 
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    public function getDestination()
+    {
+        return $this->destination;
+    }
+
     private function getDifference(FileSystemInterface $first, FileSystemInterface $second)
     {
         return array_values(array_udiff(

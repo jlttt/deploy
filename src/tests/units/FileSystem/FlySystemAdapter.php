@@ -4,14 +4,9 @@ namespace Pmp\Deploy\tests\units\FileSystem;
 require_once(__DIR__ . '/../../../../vendor/autoload.php');
 
 use atoum;
-use Pmp\Deploy\FileSystem\File;
 
-class LocalFlySystemAdapter extends atoum
+class FlySystemAdapter extends atoum
 {
-    public function test__construct()
-    {
-    }
-
     public function testGetFiles()
     {
         $this->mockGenerator->orphanize('__construct');
@@ -29,7 +24,7 @@ class LocalFlySystemAdapter extends atoum
             'size' => 456,
             'type' => 'text/plain'
         ];
-        $file = new File($this->testedInstance, 'path', $infos);
+        $file = new \Pmp\Deploy\FileSystem\File($this->testedInstance, 'path', $infos);
         $this->array($this->testedInstance->getFiles())->hasSize(1)->contains($file);;
     }
 
