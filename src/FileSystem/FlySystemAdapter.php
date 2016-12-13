@@ -2,6 +2,7 @@
 namespace Jlttt\Deploy\FileSystem;
 
 use League\Flysystem\Adapter\Local;
+use League\Flysystem\FileExistsException;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Plugin\ListFiles;
 
@@ -35,7 +36,11 @@ class FlySystemAdapter implements FileSystemInterface
 
     public function write($path, $stream)
     {
-        return $this->fileSystem->writeStream($path, $stream);
+        try {
+            return $this->fileSystem->writeStream($path, $stream);
+        } catch (FileExistsException $e) {
+            return $this->fileSystem->updateStream($path, $stream);
+        }
     }
 
     public function delete($path)
