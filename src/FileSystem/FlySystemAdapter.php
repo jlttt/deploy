@@ -41,6 +41,9 @@ class FlySystemAdapter implements FileSystemInterface
         } catch (FileExistsException $e) {
             return $this->fileSystem->updateStream($path, $stream);
         }
+        if (is_ressource($stream)) {
+            fclose($stream);
+        }
     }
 
     public function delete($path)
