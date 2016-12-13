@@ -1,9 +1,9 @@
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
-use Pmp\Deploy\FileSystem\LocalFlySystemAdapter;
+use Pmp\Deploy\FileSystem\FlySystemAdapter;
 use Pmp\Deploy\Deployer;
 
-$test = new LocalFlySystemAdapter();
+$test = new FlySystemAdapter(new Filesystem(new \League\Flysystem\Adapter\Local()));
 /*$sourcePath = __DIR__ . '/source';
 $destinationPath = __DIR__ . '/destination';*/
 /*new LocalFlySystemAdapter();/*

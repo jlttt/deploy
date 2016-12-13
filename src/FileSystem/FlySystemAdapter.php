@@ -5,7 +5,7 @@ use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Plugin\ListFiles;
 
-class LocalFlySystemAdapter implements FileSystemInterface
+class FlySystemAdapter implements FileSystemInterface
 {
     protected $fileSystem = null;
 
