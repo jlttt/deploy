@@ -1,5 +1,6 @@
 {
   "name": "jlttt/deploy",
+  "type": "library",
   "require": {
     "league/flysystem": "^1.0",
     "league/flysystem-sftp": "^1.0",
