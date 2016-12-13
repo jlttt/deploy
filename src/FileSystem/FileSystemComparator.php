@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: famille
- * Date: 29/11/2016
- * Time: 09:21
- */
-
 namespace Pmp\Deploy\FileSystem;
-
 
 class FileSystemComparator implements FileSystemComparatorInterface
 {
@@ -35,7 +27,7 @@ class FileSystemComparator implements FileSystemComparatorInterface
             $first->getFiles(),
             $second->getFiles(),
             function($fileFromFirst, $fileFromSecond) {
-                return strcmp($fileFromFirst['path'], $fileFromSecond['path']);
+                return strcmp($fileFromFirst->getPath(), $fileFromSecond->getPath());
             }
         ));
     }
@@ -56,8 +48,8 @@ class FileSystemComparator implements FileSystemComparatorInterface
             $this->source->getFiles(),
             $this->destination->getFiles(),
             function($sourceFile, $destinationFile) {
-                if (strcmp($sourceFile['path'], $destinationFile['path']) == 0) {
-                    if ($sourceFile['timestamp'] > $destinationFile['timestamp']) {
+                if (strcmp($sourceFile->getPath(), $destinationFile->getPath()) == 0) {
+                    if ($sourceFile->getModified() > $destinationFile->getModified()) {
                         return 0;
                     }
                 }
@@ -72,8 +64,8 @@ class FileSystemComparator implements FileSystemComparatorInterface
             $this->source->getFiles(),
             $this->destination->getFiles(),
             function($sourceFile, $destinationFile) {
-                if (strcmp($sourceFile['path'], $destinationFile['path']) == 0) {
-                    if ($sourceFile['timestamp'] <= $destinationFile['timestamp']) {
+                if (strcmp($sourceFile->getPath(), $destinationFile->getPath()) == 0) {
+                    if ($sourceFile->getModified() <= $destinationFile->getModified()) {
                         return 0;
                     }
                 }
