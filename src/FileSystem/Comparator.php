@@ -44,19 +44,19 @@ class Comparator implements ComparatorInterface
 
     public function getCreatedFiles()
     {
-        return $this->getDifference($this->source, $this->destination);
+        return $this->getDifference($this->getSource(), $this->getDestination());
     }
 
     public function getDeletedFiles()
     {
-        return $this->getDifference($this->destination, $this->source);
+        return $this->getDifference($this->getDestination(), $this->getSource());
     }
 
     public function getUpdatedFiles()
     {
         return array_uintersect(
-            $this->source->getFiles(),
-            $this->destination->getFiles(),
+            $this->getSource()->getFiles(),
+            $this->getDestination()->getFiles(),
             function($sourceFile, $destinationFile) {
                 if (strcmp($sourceFile->getPath(), $destinationFile->getPath()) == 0) {
                     if ($sourceFile->getModified() > $destinationFile->getModified()) {
@@ -71,8 +71,8 @@ class Comparator implements ComparatorInterface
     public function getUnchangedFiles()
     {
         return array_uintersect(
-            $this->source->getFiles(),
-            $this->destination->getFiles(),
+            $this->getSource()->getFiles(),
+            $this->getDestination()->getFiles(),
             function($sourceFile, $destinationFile) {
                 if (strcmp($sourceFile->getPath(), $destinationFile->getPath()) == 0) {
                     if ($sourceFile->getModified() <= $destinationFile->getModified()) {
