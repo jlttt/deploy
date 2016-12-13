@@ -1,7 +1,7 @@
 <?php
 namespace Pmp\Deploy\FileSystem;
 
-interface FileSystemComparatorInterface
+interface ComparatorInterface
 {
     public function setSource(FileSystemInterface $source);
     public function setDestination(FileSystemInterface $destination);

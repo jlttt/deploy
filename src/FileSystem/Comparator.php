@@ -1,7 +1,7 @@
 <?php
 namespace Pmp\Deploy\FileSystem;
 
-class FileSystemComparator implements FileSystemComparatorInterface
+class Comparator implements ComparatorInterface
 {
     protected $source;
     protected $destination;

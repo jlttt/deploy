@@ -1,11 +1,11 @@
 <?php
 namespace Pmp\Deploy\FileSystem;
 
-class FileSystemSynchronizer implements FileSystemSynchronizerInterface
+class Synchronizer implements SynchronizerInterface
 {
     protected $comparator;
 
-    public function __construct(FileSystemComparator $comparator)
+    public function __construct(Comparator $comparator)
     {
         $this->comparator = $comparator;
     }
