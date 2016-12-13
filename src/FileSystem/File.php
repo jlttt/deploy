@@ -16,32 +16,37 @@ class File implements FileInterface
     {
         $this->fileSystem = $fileSystem;
         $this->path = $path;
-        foreach($infos as $name => $value) {
+        foreach ($infos as $name => $value) {
             if (property_exists($this, $name)) {
                 $this->{$name} = $value;
             }
         }
     }
 
+    private function getFileSystem()
+    {
+        return $this->fileSystem;
+    }
+
     public function copyTo(FileSystemInterface $fileSystem)
     {
-        $file = new File($fileSystem, $this->path);
+        $file = new File($fileSystem, $this->getPath());
         $file->write($this->read());
     }
 
-    public function read()
+    private function read()
     {
-        return $this->fileSystem->read($this->path);
+        return $this->fileSystem->read($this->getPath());
     }
 
-    public function write($content)
+    private function write($content)
     {
-        return $this->fileSystem->write($this->path, $content);
+        return $this->getFileSystem()->write($this->getPath(), $content);
     }
 
     public function delete()
     {
-        return $this->fileSystem->delete($this->path);
+        return $this->getFileSystem()->delete($this->getPath());
     }
 
     public function getPath()
