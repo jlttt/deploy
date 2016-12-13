@@ -31,11 +31,7 @@ class File implements FileInterface
     public function copyTo(FileSystemInterface $fileSystem)
     {
         $file = new File($fileSystem, $this->getPath());
-        try {
-            $file->write($this->read());
-        } catch (FileExistsException $e) {
-            var_dump($e);
-        }
+        $file->write($this->read());
     }
 
     private function read()
