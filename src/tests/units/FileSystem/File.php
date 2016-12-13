@@ -1,6 +1,6 @@
 <?php
 
-namespace Pmp\Deploy\tests\units\FileSystem;
+namespace Jlttt\Deploy\tests\units\FileSystem;
 
 require_once(__DIR__ . '/../../../../vendor/autoload.php');
 
@@ -11,7 +11,7 @@ class File extends atoum
     public function testGetModified()
     {
         $this->newTestedInstance(
-            new \mock\Pmp\Deploy\FileSystem\FileSystemInterface,
+            new \mock\Jlttt\Deploy\FileSystem\FileSystemInterface,
             'path', [
             'modified' => 12345]
         );

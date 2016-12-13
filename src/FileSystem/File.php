@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Pmp\Deploy\FileSystem;
+namespace Jlttt\Deploy\FileSystem;
 
 
 class File implements FileInterface

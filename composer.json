@@ -1,4 +1,5 @@
 {
+  "name": "jlttt/deploy",
   "require": {
     "league/flysystem": "^1.0",
     "league/flysystem-sftp": "^1.0",
@@ -10,7 +11,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Pmp\\Deploy\\": "src/"
+      "Jlttt\\Deploy\\": "src/"
     }
   }
 }
