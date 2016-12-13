@@ -8,9 +8,7 @@ class File implements FileInterface
 {
     private $fileSystem;
     private $path;
-    private $type;
     private $modified;
-    private $size;
 
     public function __construct(FileSystemInterface $fileSystem, $path, $infos = [])
     {
