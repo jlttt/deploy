@@ -4,6 +4,8 @@
 namespace Jlttt\Deploy\FileSystem;
 
 
+use League\Flysystem\FileExistsException;
+
 class File implements FileInterface
 {
     private $fileSystem;
@@ -29,7 +31,11 @@ class File implements FileInterface
     public function copyTo(FileSystemInterface $fileSystem)
     {
         $file = new File($fileSystem, $this->getPath());
-        $file->write($this->read());
+        try {
+            $file->write($this->read());
+        } catch (FileExistsException $e) {
+            var_dump($e);
+        }
     }
 
     private function read()
