@@ -31,7 +31,7 @@ class Comparator extends atoum
         return new \Pmp\Deploy\FileSystem\File($fileSystem, $path, $item);
     }
 
-    public function beforeTestMethod() {
+    public function beforeTestMethod($method) {
         $this->source = new \mock\Pmp\Deploy\FileSystem\FileSystemInterface();
         $this->destination = new \mock\Pmp\Deploy\FileSystem\FileSystemInterface();
     }
