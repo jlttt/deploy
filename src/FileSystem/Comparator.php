@@ -1,5 +1,5 @@
 <?php
-namespace Pmp\Deploy\FileSystem;
+namespace Jlttt\Deploy\FileSystem;
 
 class Comparator implements ComparatorInterface
 {

@@ -6,7 +6,7 @@
  * Time: 09:37
  */
 
-namespace Pmp\Deploy\tests\units\FileSystem;
+namespace Jlttt\Deploy\tests\units\FileSystem;
 
 require_once(__DIR__ . '/../../../../vendor/autoload.php');
 

@@ -1,5 +1,5 @@
 <?php
-namespace Pmp\Deploy\FileSystem;
+namespace Jlttt\Deploy\FileSystem;
 
 class Synchronizer implements SynchronizerInterface
 {

@@ -6,7 +6,7 @@
  * Time: 09:37
  */
 
-namespace Pmp\Deploy\tests\units\FileSystem;
+namespace Jlttt\Deploy\tests\units\FileSystem;
 
 require_once(__DIR__ . '/../../../../vendor/autoload.php');
 
@@ -28,12 +28,12 @@ class Comparator extends atoum
     private function file($fileSystem, $item) {
         $path = $item['path'];
         unset($item['path']);
-        return new \Pmp\Deploy\FileSystem\File($fileSystem, $path, $item);
+        return new \Jlttt\Deploy\FileSystem\File($fileSystem, $path, $item);
     }
 
     public function beforeTestMethod($method) {
-        $this->source = new \mock\Pmp\Deploy\FileSystem\FileSystemInterface();
-        $this->destination = new \mock\Pmp\Deploy\FileSystem\FileSystemInterface();
+        $this->source = new \mock\Jlttt\Deploy\FileSystem\FileSystemInterface();
+        $this->destination = new \mock\Jlttt\Deploy\FileSystem\FileSystemInterface();
     }
 
     public function init($assertName, $sourceFiles, $destinationFiles, &$expectedResult)

@@ -1,5 +1,5 @@
 <?php
-namespace Pmp\Deploy\tests\units\FileSystem;
+namespace Jlttt\Deploy\tests\units\FileSystem;
 
 require_once(__DIR__ . '/../../../../vendor/autoload.php');
 
@@ -24,7 +24,7 @@ class FlySystemAdapter extends atoum
             'size' => 456,
             'type' => 'text/plain'
         ];
-        $file = new \Pmp\Deploy\FileSystem\File($this->testedInstance, 'path', $infos);
+        $file = new \Jlttt\Deploy\FileSystem\File($this->testedInstance, 'path', $infos);
         $this->array($this->testedInstance->getFiles())->hasSize(1)->contains($file);;
     }
 

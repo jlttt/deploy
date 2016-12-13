@@ -1,5 +1,5 @@
 <?php
-namespace Pmp\Deploy\FileSystem;
+namespace Jlttt\Deploy\FileSystem;
 
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
