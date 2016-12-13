@@ -12,7 +12,7 @@ require_once(__DIR__ . '/../../../../vendor/autoload.php');
 
 use atoum;
 
-class FileSystemComparator extends atoum
+class Comparator extends atoum
 {
     protected $source;
     protected $destination;

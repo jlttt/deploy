@@ -12,7 +12,7 @@ require_once(__DIR__ . '/../../../../vendor/autoload.php');
 
 use atoum;
 
-class FileSystemSynchronizer extends atoum
+class Synchronizer extends atoum
 {
     public function testSynchronize()
     {

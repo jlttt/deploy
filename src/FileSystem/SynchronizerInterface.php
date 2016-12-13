@@ -1,7 +1,7 @@
 <?php
 namespace Pmp\Deploy\FileSystem;
 
-interface FileSystemSynchronizerInterface
+interface SynchronizerInterface
 {
     public function synchronize();
 }
