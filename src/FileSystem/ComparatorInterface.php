@@ -13,7 +13,7 @@ interface ComparatorInterface
     public function getSource();
     public function getDestination();
 
-    public function getCreatedFiles($fileType = self::SOURCE_FILE);
+    public function getCreatedFiles();
     public function getDeletedFiles();
     public function getUpdatedFiles($fileType = self::SOURCE_FILE);
     public function getUnchangedFiles($fileType = self::SOURCE_FILE);
