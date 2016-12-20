@@ -58,4 +58,14 @@ class File implements FileInterface
     {
         return $this->modified;
     }
+
+    public function match($patterns)
+    {
+        foreach ($patterns as $pattern) {
+            if (preg_match('/' . preg_quote($pattern, '/') . '/', $this->getPath()) == 1) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

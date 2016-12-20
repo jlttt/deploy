@@ -3,5 +3,5 @@ namespace Jlttt\Deploy\FileSystem;
 
 interface SynchronizerInterface
 {
-    public function synchronize();
+    public function synchronize($backupDirectory = null);
 }

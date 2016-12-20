@@ -17,4 +17,13 @@ class File extends atoum
         );
         $this->variable($this->testedInstance->getModified())->isEqualTo(12345);
     }
+
+    public function testMatch()
+    {
+        $this->newTestedInstance(new \mock\Jlttt\Deploy\FileSystem\FileSystemInterface, 'path');
+        $patterns = ['\d', 'dir/sub-dir', '/$[)_-^'];
+        $this->boolean($this->testedInstance->match($patterns))->isEqualTo(false);
+        $patterns = ['pa'];
+        $this->boolean($this->testedInstance->match($patterns))->isEqualTo(true);
+    }
 }

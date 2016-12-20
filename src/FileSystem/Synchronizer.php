@@ -7,33 +7,44 @@ class Synchronizer implements SynchronizerInterface
 
     public function __construct(Comparator $comparator)
     {
-        $this->comparator = $comparator;
+        $this->getComparator() = $comparator;
     }
 
-    public function synchronize()
+    public function getComparator()
+    {
+        return $this->comparator;
+    }
+
+    public function synchronize(FileSystemInterface $backupFileSystem = null)
     {
         $this->createFiles();
-        $this->updateFiles();
-        $this->deleteFiles();
+        $this->updateFiles($backupFileSystem);
+        $this->deleteFiles($backupFileSystem);
     }
 
     private function createFiles()
     {
-        foreach ($this->comparator->getCreatedFiles() as $file) {
-            $file->copyTo($this->comparator->getDestination());
+        foreach ($this->getComparator()->getCreatedFiles() as $file) {
+            $file->copyTo($this->getComparator()->getDestination());
         }
     }
 
-    private function updateFiles()
+    private function updateFiles(FileSystemInterface $backupFileSystem = null)
     {
-        foreach($this->comparator->getUpdatedFiles() as $file) {
-            $file->copyTo($this->comparator->getDestination());
+        if (!empty($backupFileSystem)) {
+            foreach ($this->getComparator()->getUpdatedFiles(ComparatorInterface::DESTINATION_FILE) as $file) {
+                $file->copyTo($backupFileSystem);
+            }
+        }
+        foreach($this->getComparator()->getUpdatedFiles() as $file) {
+            $file->copyTo($this->getComparator()->getDestination());
         }
     }
 
-    private function deleteFiles()
+    private function deleteFiles(FileSystemInterface $backupFileSystem = null)
     {
-        foreach($this->comparator->getDeletedFiles() as $file) {
+        foreach($this->getComparator()->getDeletedFiles() as $file) {
+            $file->copyTo($backupFileSystem);
             $file->delete();
         }
     }
