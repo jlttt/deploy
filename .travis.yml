@@ -8,7 +8,7 @@ before_script:
   - mkdir -p build/logs/
 script: 
   - composer install --no-interaction --dev
-  - ./vendor/bin/atoum -d src/tests/units -c .atoum.php
+  - ./vendor/bin/atoum -d tests/units -c .atoum.php
   - CODECLIMATE_REPO_TOKEN=2f8245884c4ae619bc9c61aeaacbd101e31c2586b6646a110a02d51f079df6db ./vendor/bin/test-reporter
 notifications:
   on_success: change
