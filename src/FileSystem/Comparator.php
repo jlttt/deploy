@@ -28,7 +28,7 @@ class Comparator implements ComparatorInterface
         $this->ignoreFilePatterns = $patterns;
     }
 
-    public function getIgnoreFilePatterns($patterns)
+    public function getIgnoreFilePatterns()
     {
         return $this->ignoreFilePatterns;
     }
@@ -52,9 +52,9 @@ class Comparator implements ComparatorInterface
                 return strcmp($fileFromFirst->getPath(), $fileFromSecond->getPath());
             }
         ));
-        return array_filter(function ($item) {
+        return array_filter($differences, function ($item) {
             return !$item->match($this->getIgnoreFilePatterns());
-        }, $differences);
+        });
     }
 
     public function getCreatedFiles()
@@ -67,7 +67,7 @@ class Comparator implements ComparatorInterface
         return $this->getDifference($this->getDestination(), $this->getSource());
     }
 
-    public function getUpdatedFiles()
+    public function getUpdatedFiles($fileType = self::SOURCE_FILE)
     {
         return array_uintersect(
             $this->getSource()->getFiles(),
@@ -85,7 +85,7 @@ class Comparator implements ComparatorInterface
         );
     }
 
-    public function getUnchangedFiles()
+    public function getUnchangedFiles($fileType = self::SOURCE_FILE)
     {
         return array_uintersect(
             $this->getSource()->getFiles(),

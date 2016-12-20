@@ -7,7 +7,7 @@ class Synchronizer implements SynchronizerInterface
 
     public function __construct(Comparator $comparator)
     {
-        $this->getComparator() = $comparator;
+        $this->comparator = $comparator;
     }
 
     public function getComparator()
