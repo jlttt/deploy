@@ -11,4 +11,6 @@ interface FileInterface
 
     public function getPath();
     public function getModified();
+
+    public function match($patterns);
 }

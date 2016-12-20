@@ -5,11 +5,13 @@ class Comparator implements ComparatorInterface
 {
     protected $source;
     protected $destination;
+    protected $ignoreFilePattern;
 
-    public function __construct(FileSystemInterface $source, FileSystemInterface $destination)
+    public function __construct(FileSystemInterface $source, FileSystemInterface $destination, $ignoreFilePatterns = [])
     {
         $this->setSource($source);
         $this->setDestination($destination);
+        $this->setIgnoreFilePatterns($ignoreFilePatterns);
     }
     public function setSource(FileSystemInterface $source)
     {
@@ -19,6 +21,16 @@ class Comparator implements ComparatorInterface
     public function setDestination(FileSystemInterface $destination)
     {
         $this->destination = $destination;
+    }
+
+    public function setIgnoreFilePatterns($patterns)
+    {
+        $this->ignoreFilePatterns = $patterns;
+    }
+
+    public function getIgnoreFilePatterns($patterns)
+    {
+        return $this->ignoreFilePatterns;
     }
 
     public function getSource()
@@ -33,13 +45,16 @@ class Comparator implements ComparatorInterface
 
     private function getDifference(FileSystemInterface $first, FileSystemInterface $second)
     {
-        return array_values(array_udiff(
+        $differences = array_values(array_udiff(
             $first->getFiles(),
             $second->getFiles(),
             function($fileFromFirst, $fileFromSecond) {
                 return strcmp($fileFromFirst->getPath(), $fileFromSecond->getPath());
             }
         ));
+        return array_filter(function ($item) {
+            return !$item->match($this->getIgnoreFilePatterns());
+        }, $differences);
     }
 
     public function getCreatedFiles()
@@ -60,7 +75,9 @@ class Comparator implements ComparatorInterface
             function($sourceFile, $destinationFile) {
                 if (strcmp($sourceFile->getPath(), $destinationFile->getPath()) == 0) {
                     if ($sourceFile->getModified() > $destinationFile->getModified()) {
-                        return 0;
+                        if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
+                            return 0;
+                        }
                     }
                 }
                 return 1;
@@ -76,7 +93,9 @@ class Comparator implements ComparatorInterface
             function($sourceFile, $destinationFile) {
                 if (strcmp($sourceFile->getPath(), $destinationFile->getPath()) == 0) {
                     if ($sourceFile->getModified() <= $destinationFile->getModified()) {
-                        return 0;
+                        if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
+                            return 0;
+                        }
                     }
                 }
                 return 1;
