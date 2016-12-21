@@ -16,5 +16,9 @@ class Synchronizer extends atoum
 {
     public function testSynchronize()
     {
+        /*$comparator = new \mock\Jlttt\Deploy\FileSystem\ComparatorInterface();
+        $backup = new \mock\Jlttt\Deploy\FileSystem\FileSystemInterface();
+        $this->newTestedInstance($comparator);
+        $this->synchronize($backup);*/
     }
 }

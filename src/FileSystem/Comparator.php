@@ -69,37 +69,71 @@ class Comparator implements ComparatorInterface
 
     public function getUpdatedFiles($fileType = self::SOURCE_FILE)
     {
-        return array_uintersect(
-            $this->getSource()->getFiles(),
-            $this->getDestination()->getFiles(),
-            function($sourceFile, $destinationFile) {
-                if (strcmp($sourceFile->getPath(), $destinationFile->getPath()) == 0) {
-                    if ($sourceFile->getModified() > $destinationFile->getModified()) {
-                        if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
-                            return 0;
+        if (self::SOURCE_FILE == $fileType) {
+            return array_uintersect(
+                $this->getSource()->getFiles(),
+                $this->getDestination()->getFiles(),
+                function($sourceFile, $destinationFile) {
+                    if (strcmp($sourceFile->getPath(), $destinationFile->getPath()) == 0) {
+                        if ($sourceFile->getModified() > $destinationFile->getModified()) {
+                            if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
+                                return 0;
+                            }
                         }
                     }
+                    return 1;
                 }
-                return 1;
-            }
-        );
+            );
+        } else {
+            return array_uintersect(
+                $this->getDestination()->getFiles(),
+                $this->getSource()->getFiles(),
+                function($destinationFile, $sourceFile) {
+                    if (strcmp($sourceFile->getPath(), $destinationFile->getPath()) == 0) {
+                        if ($sourceFile->getModified() > $destinationFile->getModified()) {
+                            if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
+                                return 0;
+                            }
+                        }
+                    }
+                    return 1;
+                }
+            );
+        }
     }
 
     public function getUnchangedFiles($fileType = self::SOURCE_FILE)
     {
-        return array_uintersect(
-            $this->getSource()->getFiles(),
-            $this->getDestination()->getFiles(),
-            function($sourceFile, $destinationFile) {
-                if (strcmp($sourceFile->getPath(), $destinationFile->getPath()) == 0) {
-                    if ($sourceFile->getModified() <= $destinationFile->getModified()) {
-                        if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
-                            return 0;
+        if (self::SOURCE_FILE == $fileType) {
+            return array_uintersect(
+                $this->getSource()->getFiles(),
+                $this->getDestination()->getFiles(),
+                function ($sourceFile, $destinationFile) {
+                    if (strcmp($sourceFile->getPath(), $destinationFile->getPath()) == 0) {
+                        if ($sourceFile->getModified() <= $destinationFile->getModified()) {
+                            if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
+                                return 0;
+                            }
                         }
                     }
+                    return 1;
                 }
-                return 1;
-            }
-        );
+            );
+        } else {
+            return array_uintersect(
+                $this->getDestination()->getFiles(),
+                $this->getSource()->getFiles(),
+                function ($destinationFile, $sourceFile) {
+                    if (strcmp($sourceFile->getPath(), $destinationFile->getPath()) == 0) {
+                        if ($sourceFile->getModified() <= $destinationFile->getModified()) {
+                            if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
+                                return 0;
+                            }
+                        }
+                    }
+                    return 1;
+                }
+            );
+        }
     }
 }
