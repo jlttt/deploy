@@ -74,14 +74,17 @@ class Comparator implements ComparatorInterface
                 $this->getSource()->getFiles(),
                 $this->getDestination()->getFiles(),
                 function($sourceFile, $destinationFile) {
-                    if (strcmp($sourceFile->getPath(), $destinationFile->getPath()) == 0) {
-                        if ($sourceFile->getModified() > $destinationFile->getModified()) {
+                    $pathCmp = strcmp($sourceFile->getPath(), $destinationFile->getPath());
+                    if ($pathCmp == 0) {
+                        $modifiedCmp = $sourceFile->getModified() > $destinationFile->getModified();
+                        if ($modifiedCmp) {
                             if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
                                 return 0;
                             }
                         }
+                        return 1;
                     }
-                    return 1;
+                    return $pathCmp;
                 }
             );
         } else {
@@ -89,14 +92,16 @@ class Comparator implements ComparatorInterface
                 $this->getDestination()->getFiles(),
                 $this->getSource()->getFiles(),
                 function($destinationFile, $sourceFile) {
-                    if (strcmp($sourceFile->getPath(), $destinationFile->getPath()) == 0) {
+                    $pathCmp = strcmp($sourceFile->getPath(), $destinationFile->getPath());
+                    if ($pathCmp == 0) {
                         if ($sourceFile->getModified() > $destinationFile->getModified()) {
                             if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
                                 return 0;
                             }
                         }
+                        return 1;
                     }
-                    return 1;
+                    return $pathCmp;
                 }
             );
         }
@@ -109,14 +114,16 @@ class Comparator implements ComparatorInterface
                 $this->getSource()->getFiles(),
                 $this->getDestination()->getFiles(),
                 function ($sourceFile, $destinationFile) {
-                    if (strcmp($sourceFile->getPath(), $destinationFile->getPath()) == 0) {
+                    $pathCmp = strcmp($sourceFile->getPath(), $destinationFile->getPath());
+                    if ($pathCmp == 0) {
                         if ($sourceFile->getModified() <= $destinationFile->getModified()) {
                             if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
                                 return 0;
                             }
                         }
+                        return 1;
                     }
-                    return 1;
+                    return $pathCmp;
                 }
             );
         } else {
@@ -124,14 +131,16 @@ class Comparator implements ComparatorInterface
                 $this->getDestination()->getFiles(),
                 $this->getSource()->getFiles(),
                 function ($destinationFile, $sourceFile) {
-                    if (strcmp($sourceFile->getPath(), $destinationFile->getPath()) == 0) {
+                    $pathCmp = strcmp($sourceFile->getPath(), $destinationFile->getPath());
+                    if ($pathCmp == 0) {
                         if ($sourceFile->getModified() <= $destinationFile->getModified()) {
                             if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
                                 return 0;
                             }
                         }
+                        return 1;
                     }
-                    return 1;
+                    return $pathCmp;
                 }
             );
         }
