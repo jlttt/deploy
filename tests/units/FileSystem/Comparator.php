@@ -197,6 +197,7 @@ class Comparator extends atoum
 
     protected function dataGetUnchangedFiles()
     {
+        // wrong tests...
         $aFile = ['path' => 'path_1', 'modified' => 3];
         $aUpdatedFile = ['path' => 'path_1', 'modified' => 4];
         $anotherFile = ['path' => 'path_2', 'modified' => 5];
