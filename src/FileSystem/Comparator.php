@@ -13,6 +13,7 @@ class Comparator implements ComparatorInterface
         $this->setDestination($destination);
         $this->setIgnoreFilePatterns($ignoreFilePatterns);
     }
+
     public function setSource(FileSystemInterface $source)
     {
         $this->source = $source;
@@ -48,7 +49,7 @@ class Comparator implements ComparatorInterface
         $differences = array_values(array_udiff(
             $first->getFiles(),
             $second->getFiles(),
-            function($fileFromFirst, $fileFromSecond) {
+            function ($fileFromFirst, $fileFromSecond) {
                 return strcmp($fileFromFirst->getPath(), $fileFromSecond->getPath());
             }
         ));
@@ -73,7 +74,7 @@ class Comparator implements ComparatorInterface
             return array_uintersect(
                 $this->getSource()->getFiles(),
                 $this->getDestination()->getFiles(),
-                function($sourceFile, $destinationFile) {
+                function ($sourceFile, $destinationFile) {
                     $pathCmp = strcmp($sourceFile->getPath(), $destinationFile->getPath());
                     if ($pathCmp == 0) {
                         $modifiedCmp = $sourceFile->getModified() > $destinationFile->getModified();
@@ -87,24 +88,24 @@ class Comparator implements ComparatorInterface
                     return $pathCmp;
                 }
             );
-        } else {
-            return array_uintersect(
-                $this->getDestination()->getFiles(),
-                $this->getSource()->getFiles(),
-                function($destinationFile, $sourceFile) {
-                    $pathCmp = strcmp($sourceFile->getPath(), $destinationFile->getPath());
-                    if ($pathCmp == 0) {
-                        if ($sourceFile->getModified() > $destinationFile->getModified()) {
-                            if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
-                                return 0;
-                            }
-                        }
-                        return 1;
-                    }
-                    return $pathCmp;
-                }
-            );
         }
+        return array_uintersect(
+            $this->getDestination()->getFiles(),
+            $this->getSource()->getFiles(),
+            function ($destinationFile, $sourceFile) {
+                $pathCmp = strcmp($sourceFile->getPath(), $destinationFile->getPath());
+                if ($pathCmp == 0) {
+                    if ($sourceFile->getModified() > $destinationFile->getModified()) {
+                        if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
+                            return 0;
+                        }
+                    }
+                    return 1;
+                }
+                return $pathCmp;
+            }
+        );
+
     }
 
     public function getUnchangedFiles($fileType = self::SOURCE_FILE)
@@ -126,23 +127,23 @@ class Comparator implements ComparatorInterface
                     return $pathCmp;
                 }
             );
-        } else {
-            return array_uintersect(
-                $this->getDestination()->getFiles(),
-                $this->getSource()->getFiles(),
-                function ($destinationFile, $sourceFile) {
-                    $pathCmp = strcmp($sourceFile->getPath(), $destinationFile->getPath());
-                    if ($pathCmp == 0) {
-                        if ($sourceFile->getModified() <= $destinationFile->getModified()) {
-                            if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
-                                return 0;
-                            }
-                        }
-                        return 1;
-                    }
-                    return $pathCmp;
-                }
-            );
         }
+        return array_uintersect(
+            $this->getDestination()->getFiles(),
+            $this->getSource()->getFiles(),
+            function ($destinationFile, $sourceFile) {
+                $pathCmp = strcmp($sourceFile->getPath(), $destinationFile->getPath());
+                if ($pathCmp == 0) {
+                    if ($sourceFile->getModified() <= $destinationFile->getModified()) {
+                        if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
+                            return 0;
+                        }
+                    }
+                    return 1;
+                }
+                return $pathCmp;
+            }
+        );
+
     }
 }
