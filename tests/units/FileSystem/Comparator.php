@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: famille
- * Date: 29/11/2016
- * Time: 09:37
- */
 
 namespace Jlttt\Deploy\tests\units\FileSystem;
 
@@ -36,7 +30,7 @@ class Comparator extends atoum
         $this->destination = new \mock\Jlttt\Deploy\FileSystem\FileSystemInterface();
     }
 
-    public function init($assertName, $sourceFiles, $destinationFiles, $expectedResult)
+    public function init($assertName, $sourceFiles, $destinationFiles)
     {
         $this->assert($assertName);
         $this->newTestedInstance($this->source, $this->destination);
@@ -136,45 +130,52 @@ class Comparator extends atoum
         $this->init($assertName, $sourceFiles, $destinationFiles, $expectedResult);
         $this
             ->array($this->testedInstance->getUpdatedFiles())
-            ->isEqualTo(array_map([ $this, 'sourceFile'], $expectedResult['sourceFile']));
+            ->isEqualTo(array_filter($this->testedInstance->getSource()->getFiles(), function($item) use
+            ($expectedResult) {
+                return in_array($item->getPath(), $expectedResult);
+            }));
 
         $this->init($assertName, $sourceFiles, $destinationFiles, $expectedResult);
         $this
             ->array($this->testedInstance->getUpdatedFiles(\Jlttt\Deploy\FileSystem\Comparator::DESTINATION_FILE))
-            ->isEqualTo(array_map([ $this, 'destinationFile'], $expectedResult['destinationFile']));
+            ->isEqualTo(array_filter($this->testedInstance->getDestination()->getFiles(), function($item) use ($expectedResult) {
+                return in_array($item->getPath(), $expectedResult);
+            }));
     }
 
     protected function dataGetUpdatedFiles()
     {
-        $aFile = ['path' => 'path_1', 'modified' => 3];
-        $aUpdatedFile = ['path' => 'path_1', 'modified' => 4];
-        $anotherFile = ['path' => 'path_2', 'modified' => 5];
+        //uncomplete tests...
+        $file1 = ['path' => 'path_1', 'modified' => 3];
+        $updatedFile1 = ['path' => 'path_1', 'modified' => 4];
+        $file2 = ['path' => 'path_2', 'modified' => 5];
+        $file3 = ['path' => 'path_3', 'modified' => 5];
         return [
             [
                 'assertName' => "pas de fichiers",
                 'sourceFiles' => [],
                 'destinationFiles' => [],
-                'expectedResult' => [ 'sourceFile' => [], 'destinationFile' => [] ],
+                'expectedResult' => [],
             ], [
                 'assertName' => "pas de fichiers communs",
-                'sourceFiles' => [ $anotherFile ],
-                'destinationFiles' => [ $aFile ],
-                'expectedResult' => [ 'sourceFile' => [], 'destinationFile' => [] ],
+                'sourceFiles' => [ $file2 ],
+                'destinationFiles' => [ $file1 ],
+                'expectedResult' => [],
             ], [
                 'assertName' => "fichiers identiques",
-                'sourceFiles' => [ $aFile ],
-                'destinationFiles' => [ $aFile ],
+                'sourceFiles' => [ $file1 ],
+                'destinationFiles' => [ $file1 ],
                 'expectedResult' => [ 'sourceFile' => [], 'destinationFile' => [] ],
             ], [
                 'assertName' => "fichiers communs sans mise a jour",
-                'sourceFiles' => [ $aFile ],
-                'destinationFiles' => [ $aUpdatedFile ],
-                'expectedResult' => [ 'sourceFile' => [], 'destinationFile' => [] ],
+                'sourceFiles' => [ $file1, $file2, $file3 ],
+                'destinationFiles' => [ $updatedFile1, $file2, $file3 ],
+                'expectedResult' => [],
             ], [
                 'assertName' => "fichiers communs avec mise a jour",
-                'sourceFiles' => [ $aUpdatedFile ],
-                'destinationFiles' => [ $aFile ],
-                'expectedResult' => [ 'sourceFile' => [$aUpdatedFile], 'destinationFile' => [$aFile] ]
+                'sourceFiles' => [ $file2, $file3, $updatedFile1],
+                'destinationFiles' => [ $file2, $file3, $file1],
+                'expectedResult' => [ $file1['path'] ]
             ],
         ];
     }
@@ -187,46 +188,51 @@ class Comparator extends atoum
         $this->init($assertName, $sourceFiles, $destinationFiles, $expectedResult);
         $this
             ->array($this->testedInstance->getUnchangedFiles())
-            ->isEqualTo(array_map([ $this, 'sourceFile'], $expectedResult['sourceFile']));
+            ->isEqualTo(array_filter($this->testedInstance->getSource()->getFiles(), function($item) use ($expectedResult) {
+                return in_array($item->getPath(), $expectedResult);
+            }));
 
         $this->init($assertName, $sourceFiles, $destinationFiles, $expectedResult);
         $this
             ->array($this->testedInstance->getUnchangedFiles(\Jlttt\Deploy\FileSystem\Comparator::DESTINATION_FILE))
-            ->isEqualTo(array_map([ $this, 'destinationFile'], $expectedResult['destinationFile']));
+            ->isEqualTo(array_filter($this->testedInstance->getDestination()->getFiles(), function($item) use ($expectedResult) {
+                return in_array($item->getPath(), $expectedResult);
+            }));
     }
 
     protected function dataGetUnchangedFiles()
     {
-        // wrong tests...
-        $aFile = ['path' => 'path_1', 'modified' => 3];
-        $aUpdatedFile = ['path' => 'path_1', 'modified' => 4];
-        $anotherFile = ['path' => 'path_2', 'modified' => 5];
+        // uncomplete tests...
+        $file1 = ['path' => 'path_1', 'modified' => 3];
+        $updatedFile1 = ['path' => 'path_1', 'modified' => 4];
+        $file2 = ['path' => 'path_2', 'modified' => 5];
+        $file3 = ['path' => 'path_3', 'modified' => 5];
         return [
             [
                 'assertName' => "pas de fichiers",
                 'sourceFiles' => [],
                 'destinationFiles' => [],
-                'expectedResult' => [ 'sourceFile' => [], 'destinationFile' => [] ],
+                'expectedResult' => [],
             ], [
                 'assertName' => "pas de fichiers communs",
-                'sourceFiles' => [ $anotherFile ],
-                'destinationFiles' => [ $aFile ],
-                'expectedResult' => [ 'sourceFile' => [], 'destinationFile' => [] ],
+                'sourceFiles' => [ $file2 ],
+                'destinationFiles' => [ $file1 ],
+                'expectedResult' => [],
             ], [
                 'assertName' => "fichiers identiques",
-                'sourceFiles' => [ $aFile ],
-                'destinationFiles' => [ $aFile ],
-                'expectedResult' => [ 'sourceFile' => [ $aFile ], 'destinationFile' => [ $aFile ] ],
+                'sourceFiles' => [ $file1 ],
+                'destinationFiles' => [ $file1 ],
+                'expectedResult' => [ $file1['path'] ],
             ], [
                 'assertName' => "fichiers communs sans mise a jour",
-                'sourceFiles' => [ $aFile ],
-                'destinationFiles' => [ $aUpdatedFile ],
-                'expectedResult' => [ 'sourceFile' => [ $aFile ], 'destinationFile' => [ $aUpdatedFile ] ],
+                'sourceFiles' => [ $file2, $file1, $file3 ],
+                'destinationFiles' => [ $file2, $updatedFile1, $file3 ],
+                'expectedResult' => [  $file2['path'], $file1['path'], $file3['path'] ],
             ], [
                 'assertName' => "fichiers communs avec mise a jour",
-                'sourceFiles' => [ $aUpdatedFile ],
-                'destinationFiles' => [ $aFile ],
-                'expectedResult' => [ 'sourceFile' => [], 'destinationFile' => [] ],
+                'sourceFiles' => [ $updatedFile1, $file2, $file3 ],
+                'destinationFiles' => [ $file1, $file2, $file3 ],
+                'expectedResult' => [ $file2['path'], $file3['path'] ]
             ],
         ];
     }

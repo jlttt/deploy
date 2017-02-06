@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: famille
- * Date: 29/11/2016
- * Time: 09:37
- */
 
 namespace Jlttt\Deploy\tests\units\FileSystem;
 
