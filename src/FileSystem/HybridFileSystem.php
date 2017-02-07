@@ -4,8 +4,8 @@ namespace Jlttt\Deploy\FileSystem;
 
 class HybridFileSystem implements FileSystemInterface
 {
-    protected $fileSystem = null;
-    protected $fileExplorer = null;
+    protected $fileSystem;
+    protected $fileExplorer;
 
     public function __construct(FileSystemInterface $fileSystem, FileExplorerInterface $fileExplorer)
     {

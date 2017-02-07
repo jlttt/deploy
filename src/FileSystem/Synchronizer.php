@@ -36,7 +36,7 @@ class Synchronizer implements SynchronizerInterface
                 $file->copyTo($backupFileSystem);
             }
         }
-        foreach($this->getComparator()->getUpdatedFiles() as $file) {
+        foreach ($this->getComparator()->getUpdatedFiles() as $file) {
             $file->copyTo($this->getComparator()->getDestination());
         }
     }

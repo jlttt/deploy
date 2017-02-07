@@ -13,8 +13,8 @@ engines:
       enabled: true
       config:
         file_extensions: "php"
-        ignore_undeclared: true
-        dead_code_detection: true
+        ignore-undeclared: true
+        dead-code-detection: true
   fixme:
     enabled: true
   phpmd:
