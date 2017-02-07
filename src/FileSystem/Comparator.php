@@ -1,15 +1,12 @@
 <?php
+
 namespace Jlttt\Deploy\FileSystem;
 
 class Comparator implements ComparatorInterface
 {
     protected $source;
     protected $destination;
-<<<<<<< HEAD
-    protected $ignoreFilePattern;
-=======
     protected $ignoreFilePatterns;
->>>>>>> 8a7a6eb0a9d46bdd0c94c409f66e20333c70a1bf
 
     public function __construct(FileSystemInterface $source, FileSystemInterface $destination, $ignoreFilePatterns = [])
     {
@@ -109,10 +106,6 @@ class Comparator implements ComparatorInterface
                 return $pathCmp;
             }
         );
-<<<<<<< HEAD
-
-=======
->>>>>>> 8a7a6eb0a9d46bdd0c94c409f66e20333c70a1bf
     }
 
     public function getUnchangedFiles($fileType = self::SOURCE_FILE)
@@ -151,9 +144,5 @@ class Comparator implements ComparatorInterface
                 return $pathCmp;
             }
         );
-<<<<<<< HEAD
-
-=======
->>>>>>> 8a7a6eb0a9d46bdd0c94c409f66e20333c70a1bf
     }
 }

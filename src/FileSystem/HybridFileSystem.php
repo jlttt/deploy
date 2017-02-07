@@ -1,15 +1,5 @@
 <?php
 
-<<<<<<< HEAD
-
-namespace Jlttt\Deploy\FileSystem;
-
-
-class HybridFileSystem
-{
-
-}
-=======
 namespace Jlttt\Deploy\FileSystem;
 
 class HybridFileSystem implements FileSystemInterface
@@ -43,4 +33,3 @@ class HybridFileSystem implements FileSystemInterface
         return $this->fileSystem->delete($path);
     }
 }
->>>>>>> 8a7a6eb0a9d46bdd0c94c409f66e20333c70a1bf

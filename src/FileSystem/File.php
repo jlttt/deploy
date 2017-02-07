@@ -1,14 +1,7 @@
 <?php
 
-<<<<<<< HEAD
-
 namespace Jlttt\Deploy\FileSystem;
 
-
-=======
-namespace Jlttt\Deploy\FileSystem;
-
->>>>>>> 8a7a6eb0a9d46bdd0c94c409f66e20333c70a1bf
 use League\Flysystem\FileExistsException;
 
 class File implements FileInterface
@@ -73,8 +66,4 @@ class File implements FileInterface
         }
         return false;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 8a7a6eb0a9d46bdd0c94c409f66e20333c70a1bf
