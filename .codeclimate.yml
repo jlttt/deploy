@@ -9,6 +9,10 @@ engines:
         python:
         php:
           mass_threshold: 20
+  phan:
+      enabled: true
+      config:
+        file_extensions: "php"
   fixme:
     enabled: true
   phpmd:
