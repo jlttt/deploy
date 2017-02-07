@@ -36,14 +36,22 @@ class Synchronizer implements SynchronizerInterface
                 $file->copyTo($backupFileSystem);
             }
         }
+<<<<<<< HEAD
         foreach($this->getComparator()->getUpdatedFiles() as $file) {
+=======
+        foreach ($this->getComparator()->getUpdatedFiles() as $file) {
+>>>>>>> 8a7a6eb0a9d46bdd0c94c409f66e20333c70a1bf
             $file->copyTo($this->getComparator()->getDestination());
         }
     }
 
     private function deleteFiles(FileSystemInterface $backupFileSystem = null)
     {
+<<<<<<< HEAD
         foreach($this->getComparator()->getDeletedFiles() as $file) {
+=======
+        foreach ($this->getComparator()->getDeletedFiles() as $file) {
+>>>>>>> 8a7a6eb0a9d46bdd0c94c409f66e20333c70a1bf
             $file->copyTo($backupFileSystem);
             $file->delete();
         }

@@ -13,6 +13,11 @@ engines:
       enabled: true
       config:
         file_extensions: "php"
+<<<<<<< HEAD
+=======
+        ignore-undeclared: true
+        dead-code-detection: true
+>>>>>>> 8a7a6eb0a9d46bdd0c94c409f66e20333c70a1bf
   fixme:
     enabled: true
   phpmd:
@@ -30,3 +35,7 @@ ratings:
   - "**.rb"
 exclude_paths:
 - tests/
+<<<<<<< HEAD
+=======
+- .atoum.php
+>>>>>>> 8a7a6eb0a9d46bdd0c94c409f66e20333c70a1bf
