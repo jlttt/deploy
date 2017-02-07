@@ -4,14 +4,17 @@ engines:
     enabled: true
     config:
       languages:
-      - ruby
-      - javascript
-      - python
-      - php
+        ruby:
+        javascript:
+        python:
+        php:
+          mass_threshold: 20
   fixme:
     enabled: true
   phpmd:
     enabled: true
+  phpcodesniffer:
+    enabled : true
 ratings:
   paths:
   - "**.inc"
