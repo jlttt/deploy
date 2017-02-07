@@ -43,7 +43,7 @@ class Synchronizer implements SynchronizerInterface
 
     private function deleteFiles(FileSystemInterface $backupFileSystem = null)
     {
-        foreach($this->getComparator()->getDeletedFiles() as $file) {
+        foreach ($this->getComparator()->getDeletedFiles() as $file) {
             $file->copyTo($backupFileSystem);
             $file->delete();
         }

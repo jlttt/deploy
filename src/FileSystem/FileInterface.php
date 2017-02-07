@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Jlttt\Deploy\FileSystem;
-
 
 interface FileInterface
 {

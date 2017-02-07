@@ -30,3 +30,4 @@ ratings:
   - "**.rb"
 exclude_paths:
 - tests/
+- .atoum.php

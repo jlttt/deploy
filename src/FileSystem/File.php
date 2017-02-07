@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Jlttt\Deploy\FileSystem;
-
 
 use League\Flysystem\FileExistsException;
 

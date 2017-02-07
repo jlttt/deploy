@@ -5,7 +5,7 @@ class Comparator implements ComparatorInterface
 {
     protected $source;
     protected $destination;
-    protected $ignoreFilePattern;
+    protected $ignoreFilePatterns;
 
     public function __construct(FileSystemInterface $source, FileSystemInterface $destination, $ignoreFilePatterns = [])
     {
@@ -105,7 +105,6 @@ class Comparator implements ComparatorInterface
                 return $pathCmp;
             }
         );
-
     }
 
     public function getUnchangedFiles($fileType = self::SOURCE_FILE)
@@ -144,6 +143,5 @@ class Comparator implements ComparatorInterface
                 return $pathCmp;
             }
         );
-
     }
 }
