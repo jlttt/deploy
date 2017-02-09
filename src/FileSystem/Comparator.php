@@ -10,19 +10,9 @@ class Comparator implements ComparatorInterface
 
     public function __construct(FileSystemInterface $source, FileSystemInterface $destination, $ignoreFilePatterns = [])
     {
-        $this->setSource($source);
-        $this->setDestination($destination);
-        $this->setIgnoreFilePatterns($ignoreFilePatterns);
-    }
-
-    public function setSource(FileSystemInterface $source)
-    {
         $this->source = $source;
-    }
-
-    public function setDestination(FileSystemInterface $destination)
-    {
         $this->destination = $destination;
+        $this->setIgnoreFilePatterns($ignoreFilePatterns);
     }
 
     public function setIgnoreFilePatterns($patterns)
@@ -77,16 +67,14 @@ class Comparator implements ComparatorInterface
                 $this->getDestination()->getFiles(),
                 function ($sourceFile, $destinationFile) {
                     $pathCmp = strcmp($sourceFile->getPath(), $destinationFile->getPath());
-                    if ($pathCmp == 0) {
-                        $modifiedCmp = $sourceFile->getModified() > $destinationFile->getModified();
-                        if ($modifiedCmp) {
-                            if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
-                                return 0;
-                            }
-                        }
+                    if ($pathCmp != 0) {
+                        return $pathCmp;
+                    }
+                    $modifiedCmp = $sourceFile->getModified() > $destinationFile->getModified();
+                    if (!$modifiedCmp || $sourceFile->match($this->getIgnoreFilePatterns())) {
                         return 1;
                     }
-                    return $pathCmp;
+                    return 0;
                 }
             );
         }
@@ -95,15 +83,14 @@ class Comparator implements ComparatorInterface
             $this->getSource()->getFiles(),
             function ($destinationFile, $sourceFile) {
                 $pathCmp = strcmp($sourceFile->getPath(), $destinationFile->getPath());
-                if ($pathCmp == 0) {
-                    if ($sourceFile->getModified() > $destinationFile->getModified()) {
-                        if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
-                            return 0;
-                        }
-                    }
+                if ($pathCmp != 0) {
+                    return $pathCmp;
+                }
+                $modifiedCmp = $sourceFile->getModified() > $destinationFile->getModified();
+                if (!$modifiedCmp || $sourceFile->match($this->getIgnoreFilePatterns())) {
                     return 1;
                 }
-                return $pathCmp;
+                return 0;
             }
         );
     }
@@ -116,15 +103,14 @@ class Comparator implements ComparatorInterface
                 $this->getDestination()->getFiles(),
                 function ($sourceFile, $destinationFile) {
                     $pathCmp = strcmp($sourceFile->getPath(), $destinationFile->getPath());
-                    if ($pathCmp == 0) {
-                        if ($sourceFile->getModified() <= $destinationFile->getModified()) {
-                            if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
-                                return 0;
-                            }
-                        }
+                    if ($pathCmp != 0) {
+                        return $pathCmp;
+                    }
+                    $modifiedCmp = $sourceFile->getModified() <= $destinationFile->getModified();
+                    if (!$modifiedCmp || $sourceFile->match($this->getIgnoreFilePatterns())) {
                         return 1;
                     }
-                    return $pathCmp;
+                    return 0;
                 }
             );
         }
@@ -133,15 +119,14 @@ class Comparator implements ComparatorInterface
             $this->getSource()->getFiles(),
             function ($destinationFile, $sourceFile) {
                 $pathCmp = strcmp($sourceFile->getPath(), $destinationFile->getPath());
-                if ($pathCmp == 0) {
-                    if ($sourceFile->getModified() <= $destinationFile->getModified()) {
-                        if (!$sourceFile->match($this->getIgnoreFilePatterns())) {
-                            return 0;
-                        }
-                    }
+                if ($pathCmp != 0) {
+                    return $pathCmp;
+                }
+                $modifiedCmp = $sourceFile->getModified() <= $destinationFile->getModified();
+                if (!$modifiedCmp || $sourceFile->match($this->getIgnoreFilePatterns())) {
                     return 1;
                 }
-                return $pathCmp;
+                return 0;
             }
         );
     }

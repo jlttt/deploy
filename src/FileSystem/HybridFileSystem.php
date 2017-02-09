@@ -2,6 +2,11 @@
 
 namespace Jlttt\Deploy\FileSystem;
 
+/**
+ * Class HybridFileSystem
+ * @package Jlttt\Deploy\FileSystem
+ */
+
 class HybridFileSystem implements FileSystemInterface
 {
     protected $fileSystem;

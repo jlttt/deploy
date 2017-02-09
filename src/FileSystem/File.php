@@ -14,10 +14,8 @@ class File implements FileInterface
     {
         $this->fileSystem = $fileSystem;
         $this->path = $path;
-        foreach ($infos as $name => $value) {
-            if (property_exists($this, $name)) {
-                $this->{$name} = $value;
-            }
+        foreach (array_intersect_key($infos, get_object_vars($this)) as $name => $value) {
+            $this->{$name} = $value;
         }
     }
 
@@ -59,11 +57,12 @@ class File implements FileInterface
 
     public function match($patterns)
     {
-        foreach ($patterns as $pattern) {
-            if (preg_match('/' . preg_quote($pattern, '/') . '/', $this->getPath()) == 1) {
+        $path = $this->getPath();
+        foreach($patterns as $pattern) {
+            if (preg_match('/' . preg_quote($pattern, '/') . '/', $path) == 1) {
                 return true;
-            }
+            };
         }
-        return false;
+        return $false;
     }
 }
