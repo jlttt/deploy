@@ -15,6 +15,16 @@ class Comparator implements ComparatorInterface
         $this->setIgnoreFilePatterns($ignoreFilePatterns);
     }
 
+    public function setSource(FileSystemInterface $source)
+    {
+        $this->source = $source;
+    }
+
+    public function setDestination(FileSystemInterface $source)
+    {
+        $this->destination = $destination;
+    }
+
     public function setIgnoreFilePatterns($patterns)
     {
         $this->ignoreFilePatterns = $patterns;
