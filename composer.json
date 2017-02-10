@@ -1,14 +1,35 @@
 {
   "name": "jlttt/deploy",
   "type": "library",
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "ioncube/php-openssh-cryptor",
+        "version": "dev-master",
+        "dist": {
+          "url": "https://github.com/jlttt/php-openssl-cryptor/archive/master.zip",
+          "type": "zip"
+        },
+        "autoload": {
+          "classmap": [
+            "src/"
+          ]
+        }
+      }
+    }
+  ],
   "require": {
     "league/flysystem": "^1.0",
     "league/flysystem-sftp": "^1.0",
-    "atoum/atoum": "^2.8",
-    "atoum/stubs": "^2.5"
+    "ioncube/php-openssh-cryptor": "dev-master"
   },
   "require-dev": {
-    "codeclimate/php-test-reporter": "dev-master"
+    "atoum/atoum": "^2.8",
+    "atoum/stubs": "^2.5",
+    "phpmetrics/phpmetrics": "^2.0",
+    "codeclimate/php-test-reporter": "dev-master",
+    "sebastian/phpcpd": "^3.0"
   },
   "autoload": {
     "psr-4": {

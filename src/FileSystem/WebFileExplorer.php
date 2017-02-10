@@ -2,6 +2,8 @@
 
 namespace Jlttt\Deploy\FileSystem;
 
+use Cryptor\Cryptor;
+
 class WebFileExplorer implements FileExplorerInterface
 {
     private $fileSystem;
@@ -17,11 +19,17 @@ class WebFileExplorer implements FileExplorerInterface
 
     function getFiles()
     {
-        $fileName = sha1(microtime());
-        $content = "";
-        $url = $baseUrl . '/' . $fileName;
-        $path = $webPath . '/' . $fileName;
-        $fileSystem->write($path, $content);
-        file_get_contents($url);
+        $data = 'Good things come in small packages.';
+        $key = '9901:io=[<>602vV03&Whb>9J&M~Oq';
+
+        $content = Cryptor::Encrypt($data, $key);
+
+        $stream = fopen('data://text/plain,' . $content,'r');
+        $fileName = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz0123456789'),0,10) . '.php';
+        var_dump($fileName);
+        $url = $this->baseUrl . '/' . $fileName;
+        $path = $this->webPath . '/' . $fileName;
+        var_dump($this->fileSystem->write($path, $stream));
+        var_dump(file_get_contents($url));
     }
 }

@@ -7,7 +7,7 @@ engines:
         javascript:
         python:
         php:
-          mass_threshold: 20
+          mass_threshold: 10
   phan:
       enabled: true
       config:
