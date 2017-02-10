@@ -63,6 +63,6 @@ class File implements FileInterface
                 return true;
             };
         }
-        return $false;
+        return false;
     }
 }
