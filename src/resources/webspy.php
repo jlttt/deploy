@@ -1,4 +1,12 @@
 <?php
+class AutoDestroyFile
+{
+    public function __destruct()
+    {
+        unlink(__FILE__);
+    }
+}
+
 class Cryptor
 {
     private $cipher_algo;
@@ -110,21 +118,27 @@ function glob_recursive($pattern, $flags = 0)
     }
     return $files;
 }
-$filePathOnly = array_values(array_filter(glob_recursive(realPath('.') . '/*'), 'is_file'));
-set_time_limit(60);
+
+$autoDestroy = new AutoDestroyFile();
+
+$relativePath = '{{relativePath}}';
+$relativePath = preg_replace('/' . preg_quote($relativePath, '/') . '$/', '', __DIR__);
+
+$filePathOnly = array_values(array_filter(glob_recursive($relativePath . '/*'), function($path) {
+    return is_file($path) && $path != __FILE__;
+}));
+
 $files = array_map(
     function ($filePath) {
         return [
-            'path' => $filePath,
+            'path' => preg_replace('/^' . preg_quote(__DIR__ . '/', '/') . '/','', $filePath),
             'modified' => filemtime($filePath)
         ];
     },
     $filePathOnly
 );
 
-
 $response = gzcompress(json_encode($files));
-$key = '9901:io=[<>602vV03&Whb>9J&M~Oq';
-
+$key = '{{key}}';
 header('Content-type: text/plain');
 echo Cryptor::Encrypt($response, $key);
