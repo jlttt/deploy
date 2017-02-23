@@ -20,7 +20,7 @@ class Comparator implements ComparatorInterface
         $this->source = $source;
     }
 
-    public function setDestination(FileSystemInterface $source)
+    public function setDestination(FileSystemInterface $destination)
     {
         $this->destination = $destination;
     }
@@ -71,10 +71,12 @@ class Comparator implements ComparatorInterface
 
     public function getUpdatedFiles($fileType = self::SOURCE_FILE)
     {
+        $sourceFileList = $this->getSource()->getFiles();
+        $destinationFileList= $this->getDestination()->getFiles();
         if (self::SOURCE_FILE == $fileType) {
             return array_uintersect(
-                $this->getSource()->getFiles(),
-                $this->getDestination()->getFiles(),
+                $sourceFileList,
+                $destinationFileList,
                 function ($sourceFile, $destinationFile) {
                     $pathCmp = strcmp($sourceFile->getPath(), $destinationFile->getPath());
                     if ($pathCmp != 0) {
@@ -89,8 +91,8 @@ class Comparator implements ComparatorInterface
             );
         }
         return array_uintersect(
-            $this->getDestination()->getFiles(),
-            $this->getSource()->getFiles(),
+            $destinationFileList,
+            $sourceFileList,
             function ($destinationFile, $sourceFile) {
                 $pathCmp = strcmp($sourceFile->getPath(), $destinationFile->getPath());
                 if ($pathCmp != 0) {
@@ -107,10 +109,12 @@ class Comparator implements ComparatorInterface
 
     public function getUnchangedFiles($fileType = self::SOURCE_FILE)
     {
+        $sourceFileList = $this->getSource()->getFiles();
+        $destinationFileList= $this->getDestination()->getFiles();
         if (self::SOURCE_FILE == $fileType) {
             return array_uintersect(
-                $this->getSource()->getFiles(),
-                $this->getDestination()->getFiles(),
+                $sourceFileList,
+                $destinationFileList,
                 function ($sourceFile, $destinationFile) {
                     $pathCmp = strcmp($sourceFile->getPath(), $destinationFile->getPath());
                     if ($pathCmp != 0) {
@@ -125,8 +129,8 @@ class Comparator implements ComparatorInterface
             );
         }
         return array_uintersect(
-            $this->getDestination()->getFiles(),
-            $this->getSource()->getFiles(),
+            $destinationFileList,
+            $sourceFileList,
             function ($destinationFile, $sourceFile) {
                 $pathCmp = strcmp($sourceFile->getPath(), $destinationFile->getPath());
                 if ($pathCmp != 0) {
