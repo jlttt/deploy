@@ -15,6 +15,10 @@
                     "Cryptor\\": "src/"
                 }
             },
+            "dist": {
+                "url": "https://github.com/jlttt/php-openssl-cryptor/archive/master.zip",
+                "type": "zip"
+            },
             "time": "2017-02-09T19:57:22+00:00"
         },
         {
